@@ -12,9 +12,11 @@
 
     'data': [
         'data/sequence.xml',
+        'security/security.xml',
         'views/handbook.xml',
         'views/contract.xml',
         'views/action.xml',
+        'security/ir.model.access.csv',
 
 
     ],

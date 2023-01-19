@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.module.category" id="agreement_groups">
+            <field name="name">agreement_groups</field>
+            <field name="sequence">0</field>
+        </record>
+
+        <record id="head" model="res.groups">
+            <field name="name">head</field>
+            <field name="category_id" ref="agreement_groups"/>
+            <field name="comment">Руководитель</field>
+        </record>
+
+        <record id="employee" model="res.groups">
+            <field name="name">employee</field>
+            <field name="category_id" ref="agreement_groups"/>
+            <field name="comment">Сотрудник</field>
+        </record>
+    </data>
+</odoo>
