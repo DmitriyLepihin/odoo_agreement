@@ -13,6 +13,7 @@ class Contract(models.Model):
 
     number = fields.Char(string="Номер договора", required=True,
                          readonly=True, default=lambda self: _("New"), tracking=True)
+    kind_id = fields.Many2one("type.contracts", string="Тип договора", tracking=True)
     partner_id = fields.Many2one("res.partner", string="Клиент", tracking=True)
     author_id = fields.Many2one("res.users",
                                 string="Пользователь создавший договор", tracking=True)
@@ -45,4 +46,3 @@ class Contract(models.Model):
         for rec in self:
             res.append((rec.id, "%s" % f"Договор № {rec.number}"))
         return res
-

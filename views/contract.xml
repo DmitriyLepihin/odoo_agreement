@@ -6,6 +6,7 @@
         <field name="arch" type="xml" >
             <tree string="tree">
                 <field name="number"/>
+                <field name="kind_id"/>
                 <field name="partner_id"/>
                 <field name="start_date"/>
                 <field name="end_date"/>
@@ -62,11 +63,13 @@
                                attrs="{'readonly': [('state','in', ['in_approve', 'active', 'completed'])]}"/>
                         <field name="end_date" required="1"
                                attrs="{'readonly': [('state','in', ['in_approve', 'active', 'completed'])]}"/>
+                        <field name="kind_id" required="1"
+                               attrs="{'readonly': [('state','in', ['in_approve', 'active', 'completed'])]}"/>
                     </group>
                 </sheet>
                 <sheet>
                     <div class="oe_chatter">
-                        <field name="message_ids" readonly="1" widget="mail.thread"/>
+                        <field name="message_ids" widget="mail.thread"/>
                     </div>
                 </sheet>
             </form>
