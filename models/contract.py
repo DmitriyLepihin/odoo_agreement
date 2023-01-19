@@ -22,3 +22,27 @@ class Contract(models.Model):
                               ("completed", "завершен")], default="draft", string="Статус", tracking=True)
     start_date = fields.Date(default=date.today(), string="", tracking=True)
     end_date = fields.Date(default=date.today(), string="", tracking=True)
+
+    def set_state_in_approve(self):
+        self.state = "in_approve"
+
+    def set_state_active(self):
+        self.state = "active"
+
+    def set_state_draft(self):
+        self.state = "draft"
+
+    @api.model
+    def create(self, vals):
+        if vals.get("number", _("New")) == _("New"):
+            vals["number"] = self.env["ir.sequence"].next_by_code(
+                "contract") or _("New")
+        res = super(Contract, self).create(vals)
+        return res
+
+    def name_get(self):
+        res = []
+        for rec in self:
+            res.append((rec.id, "%s" % f"Договор № {rec.number}"))
+        return res
+
