@@ -11,6 +11,7 @@
     ],
 
     'data': [
+        'data/sequence.xml',
         'views/contract.xml',
         'views/action.xml',
 
