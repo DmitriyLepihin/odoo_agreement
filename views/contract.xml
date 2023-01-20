@@ -36,13 +36,16 @@
             <form string="Form">
                 <sheet>
 
+                    <field name="is_author" invisible="1"/>
+                    <field name="is_head" invisible="1"/>
+
                     <header>
                         <button name="set_state_in_approve" string="Отправить на согласование" type="object"
-                                class="btn btn-primary" attrs="{'invisible': [('state','!=', 'draft')]}"/>
+                                class="btn btn-primary" attrs="{'invisible': ['|',('is_author', '=', True), ('state', '!=', 'draft')]}"/>
                         <button name="set_state_active" string="Согласовать" type="object" class="btn btn-primary"
-                                attrs="{'invisible': [('state','!=', 'in_approve')]}" />
+                                attrs="{'invisible': ['|',('is_head', '=', False),('state','!=', 'in_approve')]}" />
                         <button name="set_state_draft" string="Отправить на доработку" class="btn btn-primary"
-                                attrs="{'invisible': [('state','!=', 'in_approve')]}" type="object" />
+                                attrs="{'invisible': ['|',('is_head', '=', False),('state','!=', 'in_approve')]}" type="object" />
                     </header>
 
                     <header>
@@ -52,9 +55,11 @@
                     <widget name="web_ribbon" text="завершен" bg_color="bg-success"
                              attrs="{'invisible': [('state','!=', 'completed')]}"/>
 
-                    <h1 style="text-align: center;"> Информация по договору </h1>
-                    <group col="4">
+
+                    <group col="4" string="Информация по договору ">
                         <field name="number" readonly="1" force_save="1"/>
+                        <field name="kind_id" required="1"
+                               attrs="{'readonly': [('state','in', ['in_approve', 'active', 'completed'])]}"/>
                         <field name="partner_id" required="1"
                                attrs="{'readonly': [('state','in', ['in_approve', 'active', 'completed'])]}"/>
                         <field name="author_id" required="1"
@@ -62,8 +67,6 @@
                         <field name="start_date" required="1"
                                attrs="{'readonly': [('state','in', ['in_approve', 'active', 'completed'])]}"/>
                         <field name="end_date" required="1"
-                               attrs="{'readonly': [('state','in', ['in_approve', 'active', 'completed'])]}"/>
-                        <field name="kind_id" required="1"
                                attrs="{'readonly': [('state','in', ['in_approve', 'active', 'completed'])]}"/>
                     </group>
                 </sheet>
