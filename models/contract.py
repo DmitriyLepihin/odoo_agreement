@@ -21,8 +21,22 @@ class Contract(models.Model):
                               ("in_approve", "на согласовании"),
                               ("active", "активен"),
                               ("completed", "завершен")], default="draft", string="Статус", tracking=True)
-    start_date = fields.Date(default=date.today(), string="", tracking=True)
-    end_date = fields.Date(default=date.today(), string="", tracking=True)
+    start_date = fields.Date(default=date.today(), string="Дата начала", tracking=True)
+    end_date = fields.Date(default=date.today(), string="Дата завершения", tracking=True)
+    is_author = fields.Boolean(compute='check_author')
+    is_head = fields.Boolean(compute='check_group_user')
+
+    @api.depends('author_id')
+    def check_group_user(self):
+        self.is_head = self.env.user.has_group('agreement.head')
+
+    @api.depends('author_id')
+    def check_author(self):
+        self.is_author = self.env.user.id != self.author_id.id
+
+    @api.depends()
+    def _get_current_user(self):
+        self.update({"current_user_id": self.env.user.id})
 
     def set_state_in_approve(self):
         self.state = "in_approve"
