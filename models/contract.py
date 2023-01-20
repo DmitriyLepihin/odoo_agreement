@@ -11,15 +11,12 @@ class Contract(models.Model):
     _inherit = ["mail.thread", "mail.activity.mixin"]
 
 
-    number = fields.Char(string="Номер договора", required=True,
-                         readonly=True, default=lambda self: _("New"), tracking=True)
+    number = fields.Char(string="Номер договора", required=True, readonly=True,
+                         default=lambda self: _("New"), tracking=True)
     kind_id = fields.Many2one("type.contracts", string="Тип договора", tracking=True)
     partner_id = fields.Many2one("res.partner", string="Клиент", tracking=True)
-    author_id = fields.Many2one("res.users",
-                                string="Пользователь создавший договор", tracking=True)
-    state = fields.Selection([("draft", "черновик"),
-                              ("in_approve", "на согласовании"),
-                              ("active", "активен"),
+    author_id = fields.Many2one("res.users", string="Пользователь создавший договор", tracking=True)
+    state = fields.Selection([("draft", "черновик"), ("in_approve", "на согласовании"), ("active", "активен"),
                               ("completed", "завершен")], default="draft", string="Статус", tracking=True)
     start_date = fields.Date(default=date.today(), string="Дата начала", tracking=True)
     end_date = fields.Date(default=date.today(), string="Дата завершения", tracking=True)
@@ -60,3 +57,13 @@ class Contract(models.Model):
         for rec in self:
             res.append((rec.id, "%s" % f"Договор № {rec.number}"))
         return res
+
+    def set_status_completed(self):
+        """cron method"""
+        contract_ids = self.env["contract"].search([("state", "=", "active"), ("end_date", ">", date.today())])
+        for contract in contract_ids:
+            contract.write(
+                {
+                    "state": "completed"
+                }
+            )
