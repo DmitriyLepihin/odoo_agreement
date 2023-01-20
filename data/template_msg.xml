@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+   <data noupdate="0">
+       <record id="email_template_name" model="mail.template">
+           <field name="name"> Письмо на доработку </field>
+           <field name="model_id" ref="agreement.model_contract"/>
+           <field name="subject"> Добработка договора </field>
+           <field name="email_from">{{user.email}}</field>
+           <field name="email_to">{{object.author_id.email}}</field>
+           <field name="body_html" type="html">
+               <p>
+                   Уважаемый <t t-out="object.author_id.name"/>,
+                   <br/>
+                   <br/>
+                   Созданный вами договор № <t t-out="object.number"/>, отправлен на доработку
+                   <br/>
+               </p>
+           </field>
+
+       </record>
+
+   </data>
+</odoo>
+
+
+<!--АИСЗ Централизованная закупка-->
+<!--дать доступ Бовтрукевич Елена Александровна министерство энергетики-->
+

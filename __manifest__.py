@@ -5,7 +5,7 @@
     'description': "Договоры",
     'maintainer': 'admin',
     'depends': [
-        'base', 'mail'
+        'base', 'mail', 'contacts'
     ],
     'qweb': [
     ],
@@ -16,6 +16,7 @@
         'security/security.xml',
         'views/handbook.xml',
         'views/contract.xml',
+        'data/template_msg.xml',
         'views/action.xml',
         'security/ir.model.access.csv',
 

@@ -1,6 +1,7 @@
 import logging
 from odoo import api, fields, models, _
 from datetime import date
+from odoo.exceptions import ValidationError
 
 _logger = logging.getLogger(__name__)
 
@@ -43,6 +44,9 @@ class Contract(models.Model):
 
     def set_state_draft(self):
         self.state = "draft"
+        if self.author_id.email:
+            mail_template = self.env.ref('agreement.email_template_name')
+            mail_template.send_mail(self.id, force_send=True)
 
     @api.model
     def create(self, vals):
