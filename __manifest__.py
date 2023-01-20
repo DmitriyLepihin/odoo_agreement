@@ -12,6 +12,7 @@
 
     'data': [
         'data/sequence.xml',
+        'data/cron.xml',
         'security/security.xml',
         'views/handbook.xml',
         'views/contract.xml',
