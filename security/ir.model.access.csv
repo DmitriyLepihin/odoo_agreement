@@ -1,7 +1,10 @@
-id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 
-access_type_contracts,access_type_contracts.head,model_type_contracts,agreement.head,1,1,1,0
-access_contract,access_contract.head,model_contract,agreement.head,1,1,1,0
+
+
+
 
 access_type_contracts,access_type_contracts.employee,model_type_contracts,employee,1,0,0,0
 access_contract,access_contract.employee,model_contract,employee,1,1,1,0
+access_type_contracts,access_type_contracts.head,model_type_contracts,head,1,1,1,0
+access_contract,access_contract.head,model_contract,head,1,1,1,0
