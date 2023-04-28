@@ -11,7 +11,6 @@ class Contract(models.Model):
     _description = "Договор"
     _inherit = ["mail.thread", "mail.activity.mixin"]
 
-
     number = fields.Char(string="Номер договора", required=True, readonly=True,
                          default=lambda self: _("New"), tracking=True)
     kind_id = fields.Many2one("type.contracts", string="Тип договора", tracking=True)
